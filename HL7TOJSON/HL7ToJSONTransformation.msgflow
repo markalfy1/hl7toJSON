@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmFileInput.msgnode="ComIbmFileInput.msgnode" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:com_ibm_connector_kafka_ComIbmOutput.msgnode="com/ibm/connector/kafka/ComIbmOutput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="HL7ToJSONTransformation.msgflow" nsPrefix="HL7ToJSONTransformation.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="HL7ToJSONTransformation" bundleName="HL7ToJSONTransformation" pluginId="HL7TOJSON"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/HL7TOJSON/icons/full/obj16/HL7ToJSONTransformation.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/HL7TOJSON/icons/full/obj30/HL7ToJSONTransformation.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="141,212" inputDirectory="C:\HL7InputData" messageDomainProperty="DFDL" messageTypeProperty="{urn:hl7-org:v2xml}:HL7">
+        <translation xmi:type="utility:ConstantString" string="HL7FileInput"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="376,208" computeExpression="esql://routine/#HL7ToJSONTransformation_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="Compute"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="594,118" outputDirectory="C:\JSONOutputData" outputFilename="output.txt">
+        <translation xmi:type="utility:ConstantString" string="JSONFileOutput"/>
+      </nodes>
+      <nodes xmi:type="com_ibm_connector_kafka_ComIbmOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="564,210" connectorName="Kafka" topicName="HL7" bootstrapServers="https://light-insecure-ibm-es-recapi-external-tools.itzroks-66300214ca-vvvfow-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-gb.containers.appdomain.cloud/" clientId="HL7Producer" useClientIdSuffix="true" acks="0" timeout="60" securityProtocol="SSL" sslProtocol="TLSv1.2" validateMaster="inherit" validateFailureAction="exception"
+          policyUrl="{HL7ToJSONPolicy}:EventStreams">
+        <translation xmi:type="utility:ConstantString" string="EventStreamKafkaProducer"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
